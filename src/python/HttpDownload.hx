@@ -7,6 +7,6 @@ extern class HttpDownload {
      * 下载资源
      */
     @:native("urlretrieve")
-    public static function download(url:String,save:String,progres:Int->Int->Int->Void):Dynamic;
+    public static function download(url:String,save:String,progres:Int->Int->Int->Void = null):Dynamic;
 
 }
