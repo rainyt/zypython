@@ -8,9 +8,10 @@ class FileUtils {
     /**
      * 拷贝文件夹
      * @param path 
-     * @param copyTo 
+     * @param copyTo
+     * @param igone 可在这里设置多个忽略文件 
      */
-    public static function copyDic(dic:String,copyTo:String):Void
+    public static function copyDic(dic:String,copyTo:String,igone:Array<String> = null):Void
     {
         if(!FileSystem.exists(dic)){
             trace("copyDic 路径不存在："+dic);
@@ -25,13 +26,24 @@ class FileUtils {
             var file2:String = dic + "/" + file;
             if(FileSystem.isDirectory(file2))
             {
-                copyDic(file2,copyTo + "/" + dicName);
+                copyDic(file2,copyTo + "/" + dicName,igone);
             }
             else
             {
+                if(igone == null || !getIsIgone(file,igone))
                 File.copy(file2,copyTo + "/" + dicName);
             }
         }
+    }
+
+    private static function getIsIgone(file:String,igone:Array<String>):Bool
+    {
+        for(i in igone)
+        {
+            if(file.indexOf(i) != -1)
+                return true;
+        }
+        return false;
     }
 
     /**
@@ -56,6 +68,34 @@ class FileUtils {
             }
         }
         FileSystem.deleteDirectory(dic);
+    }
+
+    /**
+     * 删除空文件夹
+     * @param dic 
+     */
+    public static function removeNoneDic(dic:String):Bool
+    {
+        if(!FileSystem.exists(dic))
+            return false;
+        var isCanDelDic:Bool = true;
+        var list:Array<String> = FileSystem.readDirectory(dic);
+        for(file in list)
+        {
+            file = dic + "/" + file;
+            if(FileSystem.isDirectory(file))
+            {
+                if(!removeNoneDic(file))
+                    isCanDelDic = false;
+            }
+            else
+            {
+                isCanDelDic = false;
+            }
+        }
+        if(isCanDelDic)
+            FileSystem.deleteDirectory(dic);
+        return isCanDelDic;
     }
 
 }
