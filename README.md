@@ -2,6 +2,10 @@
 Haxe-python的通用使用库
 
 # 版本更新
+0.0.3:
+- [改进]FileUtils.copyDic新增了拷贝文件夹时，可忽略指定类型/文件
+- [新增]FileUtils.removeNoneDic新增了删除空文件夹API
+
 0.0.2:
 - [改进]新增FTP功能
 
