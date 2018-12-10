@@ -17,7 +17,7 @@ class FileUtils {
             trace("copyDic 路径不存在："+dic);
             return;
         }
-        trace(dic + " -> " + copyTo);
+        // trace(dic + " -> " + copyTo);
         var dicName:String = dic.substr(dic.lastIndexOf("/") + 1);
         FileSystem.createDirectory(copyTo + "/" + dicName);
         var list:Array<String> = FileSystem.readDirectory(dic);
