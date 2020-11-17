@@ -5,6 +5,30 @@ import sys.io.File;
 
 class FileUtils {
 
+    public static function createDir(dir:String):Void
+    {
+        if(!FileSystem.exists(dir))
+        {
+            FileSystem.createDirectory(dir);
+        }
+    }
+
+    public static function copyFile(file:String,copyTo:String):Void
+    {
+        if(!FileSystem.exists(file)){
+            trace("copyDic 路径不存在："+file);
+            return;
+        }
+        var dir:String = copyTo.substr(0,copyTo.lastIndexOf("/"));
+        if(!FileSystem.exists(dir))
+        {
+            FileSystem.createDirectory(dir);
+        }
+        if(FileSystem.exists(copyTo) && !FileSystem.isDirectory(copyTo))
+            FileSystem.deleteFile(copyTo);
+        File.copy(file,copyTo);
+    }
+
     /**
      * 拷贝文件夹
      * @param path 
@@ -17,7 +41,6 @@ class FileUtils {
             trace("copyDic 路径不存在："+dic);
             return;
         }
-        // trace(dic + " -> " + copyTo);
         var dicName:String = dic.substr(dic.lastIndexOf("/") + 1);
         FileSystem.createDirectory(copyTo + "/" + dicName);
         var list:Array<String> = FileSystem.readDirectory(dic);
@@ -31,7 +54,15 @@ class FileUtils {
             else
             {
                 if(igone == null || !getIsIgone(file,igone))
-                File.copy(file2,copyTo + "/" + dicName);
+                {
+                    try{
+                        File.copy(file2,copyTo + "/" + dicName);
+                    }
+                    catch(e:Dynamic)
+                    {
+                        trace("Warring:"+file2,e);
+                    }
+                }
             }
         }
     }

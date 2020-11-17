@@ -43,6 +43,8 @@ extern class ImageData {
      */
     public function resize(size:Tuple2<Float,Float>,mode:Dynamic = null):ImageData;
 
+    public var mode:Dynamic;
+
 }
 
 @:pythonImport("PIL","ImageDraw")
