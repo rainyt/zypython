@@ -2,6 +2,12 @@
 Haxe-python的通用使用库
 
 # 版本更新
+0.0.5:
+- 新增：新增命令行`cp`支持，例子：`haxelib run zypython cp [file] [tofile]`。
+
+0.0.4:
+- 新增：新增Zip支持。
+
 0.0.3:
 - [改进]FileUtils.copyDic新增了拷贝文件夹时，可忽略指定类型/文件
 - [新增]FileUtils.removeNoneDic新增了删除空文件夹API

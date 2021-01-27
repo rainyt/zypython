@@ -1,0 +1,9 @@
+-cp src
+--main Run
+--python bin/tools.py
+
+--next
+
+-cp src
+--main Command
+--neko run.n
